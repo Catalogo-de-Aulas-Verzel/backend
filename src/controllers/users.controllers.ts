@@ -1,7 +1,9 @@
-import { instanceToPlain } from "class-transformer";
+import { instanceToInstance, instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import { IUserRequest, IUserResponse } from "../interfaces/users.interfaces";
 import createUserService from "../services/users/createUser.services";
+import listAllUsersService from "../services/users/listAllUsers.services";
+import listUserService from "../services/users/listUser.services";
 
 const createUserController = async (req: Request, resp: Response) => {
   const user: IUserRequest = req.body;
@@ -13,9 +15,25 @@ const createUserController = async (req: Request, resp: Response) => {
     .send();
 };
 
-const listAllUsersController = async (req: Request, resp: Response) => {};
+const listAllUsersController = async (req: Request, resp: Response) => {
+  const users: IUserResponse[] = await listAllUsersService();
 
-const listUserController = async (req: Request, resp: Response) => {};
+  return resp
+    .status(200)
+    .json({ data: instanceToInstance(users) })
+    .send();
+};
+
+const listUserController = async (req: Request, resp: Response) => {
+  const { userId } = req.params;
+  const { id } = req.user;
+  const users: IUserResponse = await listUserService(id, userId);
+
+  return resp
+    .status(200)
+    .json({ data: instanceToInstance(users) })
+    .send();
+};
 
 const editUserController = async (req: Request, resp: Response) => {};
 

@@ -1,8 +1,15 @@
 import { Router } from "express";
-import { createUserController } from "../controllers/users.controllers";
+import {
+  createUserController,
+  listAllUsersController,
+  listUserController,
+} from "../controllers/users.controllers";
+import ensureAuthMiddleware from "../middlewares/ensureAuth.meddleware";
 
-const usersRoutes = Router()
+const usersRoutes = Router();
 
-usersRoutes.post("", createUserController)
+usersRoutes.post("", createUserController);
+usersRoutes.get("", ensureAuthMiddleware, listAllUsersController);
+usersRoutes.get("/:userId", ensureAuthMiddleware, listUserController);
 
-export default usersRoutes
+export default usersRoutes;
