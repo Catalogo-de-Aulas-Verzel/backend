@@ -1,10 +1,14 @@
 interface IClassRequest {
-    image?: string;
-    name: string;
-    description: string;
-    moduleId : string
+  image?: string;
+  name: string;
+  description: string;
 }
 
-export {
-    IClassRequest
+interface IClassPatchRequest {
+  image?: string;
+  name?: string;
+  description?: string;
+  moduleId?: string;
 }
+
+export { IClassRequest, IClassPatchRequest };
