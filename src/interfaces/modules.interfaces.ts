@@ -4,12 +4,4 @@ interface IModuleRequest {
   description: string;
 }
 
-interface IModuleResponse {
-  image: string;
-  name: string;
-  description: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export { IModuleRequest, IModuleResponse };
+export { IModuleRequest };

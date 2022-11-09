@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Module } from "../entities/modules";
 import {
   IModuleRequest,
-  IModuleResponse,
 } from "../interfaces/modules.interfaces";
 import createModuleService from "../services/modules/createModule.services";
 import listAllModulesService from "../services/modules/listAllModules.services";
@@ -12,7 +11,7 @@ import listModuleClassesService from "../services/modules/listModuleClasses.serv
 const createModuleController = async (req: Request, resp: Response) => {
   const module: IModuleRequest = req.body;
 
-  const createdModule: IModuleResponse = await createModuleService(module);
+  const createdModule: Module = await createModuleService(module);
 
   return resp.status(201).json({ data: createdModule }).send();
 };

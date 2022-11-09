@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { loginController } from "../controllers/login.controller";
+import { createClassController } from "../controllers/classes.controllers";
+import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 
-const loginRoute = Router()
+const classesRoutes = Router()
 
-loginRoute.post("", loginController)
+classesRoutes.post("/:moduleId",ensureAuthMiddleware, createClassController)
 
-export default loginRoute
+export default classesRoutes

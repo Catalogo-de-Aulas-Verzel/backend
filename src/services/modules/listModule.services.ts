@@ -1,11 +1,8 @@
 import AppDataSource from "../../data-source";
 import { Module } from "../../entities/modules";
 import { AppError } from "../../errors";
-import {
-  IModuleResponse,
-} from "../../interfaces/modules.interfaces";
 
-const listModuleService = async (id : string): Promise<IModuleResponse> => {
+const listModuleService = async (id : string): Promise<Module> => {
   const moduleRepository = AppDataSource.getRepository(Module)
 
   const module = await moduleRepository.findOneBy({id: id})

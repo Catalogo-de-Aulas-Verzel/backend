@@ -1,14 +1,11 @@
 import AppDataSource from "../../data-source";
 import { Module } from "../../entities/modules";
 import { AppError } from "../../errors";
-import {
-  IModuleRequest,
-  IModuleResponse,
-} from "../../interfaces/modules.interfaces";
+import { IModuleRequest } from "../../interfaces/modules.interfaces";
 
 const createModuleService = async (
   module: IModuleRequest
-): Promise<IModuleResponse> => {
+): Promise<Module> => {
   const checkKeys = Object.keys(module).map((item) => {
     return item === "name" || item === "description" || item === "image";
   });
@@ -19,21 +16,22 @@ const createModuleService = async (
 
   if (!image) image = "default_cover.jpg";
 
-  const moduleRepository = AppDataSource.getRepository(Module)
+  const moduleRepository = AppDataSource.getRepository(Module);
 
-  const checkName = await moduleRepository.findOneBy({name:name})
+  const checkName = await moduleRepository.findOneBy({ name: name });
 
-  if (checkName) throw new AppError("This module's name is already registered", 400);
+  if (checkName)
+    throw new AppError("This module's name is already registered", 400);
 
   const newModule = moduleRepository.create({
     image: image,
     description: description,
-    name: name
-  })
+    name: name,
+  });
 
-  await moduleRepository.save(newModule)
+  await moduleRepository.save(newModule);
 
-  return newModule
+  return newModule;
 };
 
 export default createModuleService;

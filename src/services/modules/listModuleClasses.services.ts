@@ -16,6 +16,8 @@ const listModuleClassesService = async (
     },
   });
 
+  console.log(module)
+
   if (!module) throw new AppError("No module found", 404);
 
   return module;
