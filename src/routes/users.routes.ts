@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createUserController,
+  deleteUserController,
   editUserController,
   listAllUsersController,
   listUserController,
@@ -12,6 +13,7 @@ const usersRoutes = Router();
 usersRoutes.post("", createUserController);
 usersRoutes.get("", ensureAuthMiddleware, listAllUsersController);
 usersRoutes.get("/:userId", ensureAuthMiddleware, listUserController);
-usersRoutes.patch("", ensureAuthMiddleware, editUserController)
+usersRoutes.patch("", ensureAuthMiddleware, editUserController);
+usersRoutes.delete("", ensureAuthMiddleware, deleteUserController);
 
 export default usersRoutes;

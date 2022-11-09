@@ -6,6 +6,7 @@ import {
   IUserResponse,
 } from "../interfaces/users.interfaces";
 import createUserService from "../services/users/createUser.services";
+import deleteUserService from "../services/users/deleteUser.services";
 import editUserService from "../services/users/editUser.services";
 import listAllUsersService from "../services/users/listAllUsers.services";
 import listUserService from "../services/users/listUser.services";
@@ -50,7 +51,13 @@ const editUserController = async (req: Request, resp: Response) => {
   return resp.status(200).json({ data: instanceToPlain(editedUser) });
 };
 
-const deleteUserController = async (req: Request, resp: Response) => {};
+const deleteUserController = async (req: Request, resp: Response) => {
+  const { id } = req.user;
+
+  await deleteUserService(id);
+
+  return resp.status(204).send();
+};
 
 export {
   createUserController,
