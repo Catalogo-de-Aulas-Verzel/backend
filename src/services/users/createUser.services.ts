@@ -9,11 +9,11 @@ const createUserService = async (
 ): Promise<IUserResponse> => {
   const checkKeys = Object.keys(user).map((item) => {
     return (
-      item.includes("name") ||
-      item.includes("email") ||
-      item.includes("password") ||
-      item.includes("isAdm") ||
-      item.includes("image")
+      item === "name" ||
+      item === "email" ||
+      item === "password" ||
+      item === "isAdm" ||
+      item === "image"
     );
   });
 

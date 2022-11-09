@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createUserController,
+  editUserController,
   listAllUsersController,
   listUserController,
 } from "../controllers/users.controllers";
@@ -11,5 +12,6 @@ const usersRoutes = Router();
 usersRoutes.post("", createUserController);
 usersRoutes.get("", ensureAuthMiddleware, listAllUsersController);
 usersRoutes.get("/:userId", ensureAuthMiddleware, listUserController);
+usersRoutes.patch("", ensureAuthMiddleware, editUserController)
 
 export default usersRoutes;

@@ -21,8 +21,16 @@ interface IUserLoginRequest {
   password: string
 }
 
+interface IUserPatchRequest {
+  image?: string;
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
 export {
     IUserRequest,
     IUserResponse,
-    IUserLoginRequest
+    IUserLoginRequest,
+    IUserPatchRequest
 }

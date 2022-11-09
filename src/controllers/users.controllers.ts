@@ -1,7 +1,12 @@
 import { instanceToInstance, instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
-import { IUserRequest, IUserResponse } from "../interfaces/users.interfaces";
+import {
+  IUserPatchRequest,
+  IUserRequest,
+  IUserResponse,
+} from "../interfaces/users.interfaces";
 import createUserService from "../services/users/createUser.services";
+import editUserService from "../services/users/editUser.services";
 import listAllUsersService from "../services/users/listAllUsers.services";
 import listUserService from "../services/users/listUser.services";
 
@@ -27,6 +32,7 @@ const listAllUsersController = async (req: Request, resp: Response) => {
 const listUserController = async (req: Request, resp: Response) => {
   const { userId } = req.params;
   const { id } = req.user;
+
   const users: IUserResponse = await listUserService(id, userId);
 
   return resp
@@ -35,7 +41,14 @@ const listUserController = async (req: Request, resp: Response) => {
     .send();
 };
 
-const editUserController = async (req: Request, resp: Response) => {};
+const editUserController = async (req: Request, resp: Response) => {
+  const editUser: IUserPatchRequest = req.body;
+  const { id } = req.user;
+
+  const editedUser = await editUserService(editUser, id);
+
+  return resp.status(200).json({ data: instanceToPlain(editedUser) });
+};
 
 const deleteUserController = async (req: Request, resp: Response) => {};
 
