@@ -35,9 +35,7 @@ const createClassService = async (
     image: image,
     description: description,
     name: name,
-    module: {
-      id: moduleId
-    }
+    module: verifyModule
   });
 
   await classRepository.save(createdClass);

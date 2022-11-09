@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import createClassService from "../services/classes/createClass.services";
 import listAllClassesService from "../services/classes/listAllClasses.services";
+import listClassService from "../services/classes/listClass.services";
 
 const createClassController = async (req: Request, resp: Response) => {
   const newClass = req.body;
@@ -17,7 +18,13 @@ const listAllClassesController = async (req: Request, resp: Response) => {
   return resp.status(200).json({ data: classes }).send();
 };
 
-const listClassController = async (req: Request, resp: Response) => {};
+const listClassController = async (req: Request, resp: Response) => {
+  const { classId } = req.params;
+
+  const findClass = await listClassService(classId);
+
+  return resp.status(200).json({ data: findClass }).send();
+};
 
 const editClassController = async (req: Request, resp: Response) => {};
 
