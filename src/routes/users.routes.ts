@@ -6,7 +6,7 @@ import {
   listAllUsersController,
   listUserController,
 } from "../controllers/users.controllers";
-import ensureAuthMiddleware from "../middlewares/ensureAuth.meddleware";
+import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 
 const usersRoutes = Router();
 
