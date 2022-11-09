@@ -4,4 +4,10 @@ interface IModuleRequest {
   description: string;
 }
 
-export { IModuleRequest };
+interface IModulePatchRequest {
+  image?: string;
+  name?: string;
+  description?: string;
+}
+
+export { IModuleRequest, IModulePatchRequest };

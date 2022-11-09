@@ -28,6 +28,6 @@ export class Class {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Module)
+  @ManyToOne(() => Module, module => module.classes , {onDelete: 'CASCADE'})
   module: Module;
 }

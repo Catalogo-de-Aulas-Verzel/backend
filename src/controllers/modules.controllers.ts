@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { Module } from "../entities/modules";
 import {
+  IModulePatchRequest,
   IModuleRequest,
 } from "../interfaces/modules.interfaces";
 import createModuleService from "../services/modules/createModule.services";
+import deleteModuleService from "../services/modules/deleteModule.services";
+import editModuleService from "../services/modules/editModule.services";
 import listAllModulesService from "../services/modules/listAllModules.services";
 import listModuleService from "../services/modules/listModule.services";
 import listModuleClassesService from "../services/modules/listModuleClasses.services";
@@ -38,9 +41,22 @@ const listModuleClassesController = async (req: Request, resp: Response) => {
   return resp.status(200).json({ data: modules }).send();
 };
 
-const editModuleController = async (req: Request, resp: Response) => {};
+const editModuleController = async (req: Request, resp: Response) => {
+  const module: IModulePatchRequest = req.body;
+  const { moduleId } = req.params;
 
-const deleteModuleController = async (req: Request, resp: Response) => {};
+  const updatedModule = await editModuleService(module, moduleId);
+
+  return resp.status(200).json({ data: updatedModule }).send();
+};
+
+const deleteModuleController = async (req: Request, resp: Response) => {
+  const { moduleId } = req.params;
+
+  await deleteModuleService(moduleId)
+
+  return resp.status(204).send()
+};
 
 export {
   createModuleController,
