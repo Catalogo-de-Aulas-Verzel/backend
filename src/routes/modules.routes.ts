@@ -29,6 +29,7 @@ modulesRoutes.patch("/:moduleId", ensureAuthMiddleware, editModuleController);
 modulesRoutes.delete(
   "/:moduleId",
   ensureAuthMiddleware,
+  ensureIsAdmMiddleware,
   deleteModuleController
 );
 

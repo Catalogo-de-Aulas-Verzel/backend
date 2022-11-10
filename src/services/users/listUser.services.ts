@@ -13,9 +13,7 @@ const listUserService = async (
 
   const user = await userRepository.findOneBy({ id: userId });
 
-  if (!user) throw new AppError("User not found", 404);
-
-  return user;
+  return user!;
 };
 
 export default listUserService;
