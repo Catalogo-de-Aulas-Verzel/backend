@@ -2,12 +2,17 @@ import request from "supertest";
 import { DataSource } from "typeorm";
 import app from "../../app";
 import AppDataSource from "../../data-source";
-import { mockUser, mockUserAdm, mockUserInvalidKey, mockUserLogin } from "../mocks/mocks";
+import {
+  mockUser,
+  mockUserAdm,
+  mockUserInvalidKey,
+  mockUserLogin,
+} from "../mocks/mocks";
 
 describe("/users", () => {
   let connection: DataSource;
-  let tokenUser : string
-  let idUser : string
+  let tokenUser: string;
+  let idUser: string;
 
   beforeAll(async () => {
     await AppDataSource.initialize()
@@ -52,7 +57,7 @@ describe("/users", () => {
     expect(resp.body.data).toHaveProperty("updatedAt");
     expect(resp.body.data).not.toHaveProperty("password");
 
-    idUser = resp.body.data.id
+    idUser = resp.body.data.id;
   });
 
   test("POST /users -> Should not be able to send a invalid key", async () => {
@@ -70,10 +75,13 @@ describe("/users", () => {
   });
 
   test("GET /users -> Should be able to list all users", async () => {
-    const login = await request(app).post("/login").send(mockUserLogin)
-    tokenUser = `Bearer ${login.body.token}`
+    const login = await request(app).post("/login").send(mockUserLogin);
+    tokenUser = `Bearer ${login.body.token}`;
 
-    const resp = await request(app).get("/users").send().set("Authorization", tokenUser);
+    const resp = await request(app)
+      .get("/users")
+      .send()
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(200);
     expect(resp.body.data[0]).toHaveProperty("image");
@@ -87,14 +95,20 @@ describe("/users", () => {
   });
 
   test("GET /users -> Should not be able to list all users without authorization", async () => {
-    const resp = await request(app).get("/users").send().set("Authorization", "no token");
+    const resp = await request(app)
+      .get("/users")
+      .send()
+      .set("Authorization", "no token");
 
     expect(resp.status).toBe(401);
     expect(resp.body.message).toEqual("Invalid token");
   });
 
   test("GET /users/:userId -> Should be able to list a user", async () => {
-    const resp = await request(app).get(`/users/${idUser}`).send().set("Authorization", tokenUser);
+    const resp = await request(app)
+      .get(`/users/${idUser}`)
+      .send()
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(200);
     expect(resp.body.data).toHaveProperty("image");
@@ -111,7 +125,10 @@ describe("/users", () => {
   });
 
   test("GET /users -> Should not be able to list a user without authorization", async () => {
-    const resp = await request(app).get(`/users/${idUser}`).send().set("Authorization", "no token");
+    const resp = await request(app)
+      .get(`/users/${idUser}`)
+      .send()
+      .set("Authorization", "no token");
 
     expect(resp.status).toBe(401);
     expect(resp.body.message).toEqual("Invalid token");
@@ -120,7 +137,10 @@ describe("/users", () => {
   test("GET /users -> Should not be able to list another user than you", async () => {});
 
   test("PATCH /users -> Should be able to edit a user", async () => {
-    const resp = await request(app).patch("/users").send({email:"mariaUpdate@mail.com"}).set("Authorization", tokenUser);
+    const resp = await request(app)
+      .patch("/users")
+      .send({ email: "mariaUpdate@mail.com" })
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(200);
     expect(resp.body.data).toHaveProperty("image");
@@ -137,41 +157,59 @@ describe("/users", () => {
   });
 
   test("PATCH /users -> Should not be able to edit a user without authorization", async () => {
-    const resp = await request(app).patch("/users").send().set("Authorization", "no token");
+    const resp = await request(app)
+      .patch("/users")
+      .send()
+      .set("Authorization", "no token");
 
     expect(resp.status).toBe(401);
     expect(resp.body.message).toEqual("Invalid token");
   });
 
   test("PATCH /users -> Should not be able to send a invalid key", async () => {
-    const resp = await request(app).patch("/users").send({emaill:"mariaUpdate@mail.com"}).set("Authorization", tokenUser);
+    const resp = await request(app)
+      .patch("/users")
+      .send({ emaill: "mariaUpdate@mail.com" })
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(400);
     expect(resp.body.message).toEqual("Invalid key");
   });
 
   test("PATCH /users -> Should not be able to register same email address than another user use", async () => {
-    const resp = await request(app).patch("/users").send({email:mockUserAdm.email}).set("Authorization", tokenUser);
+    const resp = await request(app)
+      .patch("/users")
+      .send({ email: mockUserAdm.email })
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(400);
     expect(resp.body.message).toEqual("This email is already registered");
   });
 
   test("DELETE /users -> Should not be able to delete a user without authorization", async () => {
-    const resp = await request(app).delete("/users").send().set("Authorization", "no token");
+    const resp = await request(app)
+      .delete("/users")
+      .send()
+      .set("Authorization", "no token");
 
     expect(resp.status).toBe(401);
     expect(resp.body.message).toEqual("Invalid token");
   });
 
   test("DELETE /users -> Should be able to delete a user", async () => {
-    const resp = await request(app).delete("/users").send().set("Authorization", tokenUser);
+    const resp = await request(app)
+      .delete("/users")
+      .send()
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(204);
   });
 
   test("DELETE /users -> Should not be able to delete a user that alredy being deleted", async () => {
-    const resp = await request(app).delete("/users").send().set("Authorization", tokenUser);
+    const resp = await request(app)
+      .delete("/users")
+      .send()
+      .set("Authorization", tokenUser);
 
     expect(resp.status).toBe(404);
     expect(resp.body.message).toEqual("User alredy being deleted");

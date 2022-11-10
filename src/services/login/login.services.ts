@@ -8,7 +8,7 @@ import { IUserLoginRequest } from "../../interfaces/users.interfaces";
 
 const loginService = async (userLogin: IUserLoginRequest): Promise<string> => {
   const checkKeys = Object.keys(userLogin).map((item) => {
-    return item.includes("email") || item.includes("password");
+    return item === "email" || item === "password";
   });
 
   if (checkKeys.includes(false)) throw new AppError("Invalid key", 400);
