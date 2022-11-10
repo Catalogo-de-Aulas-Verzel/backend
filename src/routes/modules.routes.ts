@@ -21,11 +21,16 @@ modulesRoutes.post(
 modulesRoutes.get("", ensureAuthMiddleware, listAllModulesController);
 modulesRoutes.get("/:moduleId", ensureAuthMiddleware, listModuleController);
 modulesRoutes.get(
-  "/classes/:moduleId",
+  "/:moduleId/classes",
   ensureAuthMiddleware,
   listModuleClassesController
 );
-modulesRoutes.patch("/:moduleId", ensureAuthMiddleware, editModuleController);
+modulesRoutes.patch(
+  "/:moduleId",
+  ensureAuthMiddleware,
+  ensureIsAdmMiddleware,
+  editModuleController
+);
 modulesRoutes.delete(
   "/:moduleId",
   ensureAuthMiddleware,

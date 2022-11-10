@@ -1,3 +1,4 @@
+import { IModuleRequest } from "../../interfaces/modules.interfaces";
 import {
   IUserLoginRequest,
   IUserRequest,
@@ -33,10 +34,22 @@ const mockUserAdmLogin: IUserLoginRequest = {
   password: "1234",
 };
 
+const mockModule : IModuleRequest = {
+  name: "Matemática",
+  description: "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística."
+}
+
+const mockModuleInvlidKey = {
+  name: "Matemática",
+  descriptionn: "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística."
+}
+
 export {
     mockUser,
     mockUserAdm,
     mockUserInvalidKey,
     mockUserLogin,
-    mockUserAdmLogin
+    mockUserAdmLogin,
+    mockModule,
+    mockModuleInvlidKey
 }

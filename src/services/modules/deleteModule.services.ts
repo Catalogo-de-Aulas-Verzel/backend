@@ -5,6 +5,8 @@ import { AppError } from "../../errors";
 const deleteModuleService = async (id: string): Promise<void> => {
   const moduleRepository = AppDataSource.getRepository(Module);
 
+  const module = await moduleRepository.findOneBy({ id: id });
+
   if (!module) throw new AppError("Module not found", 404);
 
   await moduleRepository.delete({ id: id });
