@@ -19,7 +19,7 @@ classesRoutes.post(
 );
 classesRoutes.get("", ensureAuthMiddleware, listAllClassesController);
 classesRoutes.get("/:classId", ensureAuthMiddleware, listClassController);
-classesRoutes.patch("/:classId", ensureAuthMiddleware, editClassController);
+classesRoutes.patch("/:classId", ensureAuthMiddleware, ensureIsAdmMiddleware, editClassController);
 classesRoutes.delete(
   "/:classId",
   ensureAuthMiddleware,

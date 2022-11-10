@@ -1,3 +1,4 @@
+import { IClassRequest } from "../../interfaces/classes.interfaces";
 import { IModuleRequest } from "../../interfaces/modules.interfaces";
 import {
   IUserLoginRequest,
@@ -19,10 +20,10 @@ const mockUserAdm: IUserRequest = {
 };
 
 const mockUserInvalidKey = {
-    email: "maria@mail.com",
-    name: "maria",
-    passwordd: "1234",
-  };
+  email: "maria@mail.com",
+  name: "maria",
+  passwordd: "1234",
+};
 
 const mockUserLogin: IUserLoginRequest = {
   email: "maria@mail.com",
@@ -34,22 +35,45 @@ const mockUserAdmLogin: IUserLoginRequest = {
   password: "1234",
 };
 
-const mockModule : IModuleRequest = {
+const mockModule: IModuleRequest = {
   name: "Matemática",
-  description: "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística."
-}
+  description:
+    "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística.",
+};
 
 const mockModuleInvlidKey = {
   name: "Matemática",
-  descriptionn: "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística."
-}
+  descriptionn:
+    "A matemática é a ciência do raciocínio lógico e abstrato, que estuda quantidades, espaço e medidas, estruturas, variações e estatística.",
+};
+
+const mockClass: IClassRequest = {
+  name: "Raiz quadrada",
+  description:
+    "Em matemática, a raiz quadrada de x é um número y que, multiplicado por si próprio, iguala-se a x.",
+};
+
+const mockClass2: IClassRequest = {
+  name: "Exponenciação",
+  description:
+    "Exponenciação ou potenciação é uma operação matemática, escrita como aⁿ, envolvendo dois números: a base a e o expoente n.",
+};
+
+const mockClassInvalidKey = {
+  name: "Raiz quadrada",
+  descriptionn:
+    "Em matemática, a raiz quadrada de x é um número y que, multiplicado por si próprio, iguala-se a x.",
+};
 
 export {
-    mockUser,
-    mockUserAdm,
-    mockUserInvalidKey,
-    mockUserLogin,
-    mockUserAdmLogin,
-    mockModule,
-    mockModuleInvlidKey
-}
+  mockUser,
+  mockUserAdm,
+  mockUserInvalidKey,
+  mockUserLogin,
+  mockUserAdmLogin,
+  mockModule,
+  mockModuleInvlidKey,
+  mockClass,
+  mockClass2,
+  mockClassInvalidKey
+};
